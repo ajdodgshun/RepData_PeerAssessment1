@@ -18,7 +18,8 @@ Histogram of the sums is produced (without the NA values) using an arbitrary 20 
 ```r
 cleanactivity <- activity[complete.cases(activity),]
 sum <- tapply(cleanactivity$steps, cleanactivity$date, sum, na.rm = TRUE)
-hist(sum, breaks = 20, xlab = "Total number of steps per day", main = "Histogram of total daily steps")
+hist(sum, breaks = 20, xlab = "Total number of steps per day", 
+     main = "Histogram of total daily steps")
 ```
 
 ![](PA1_template_files/figure-html/sum-1.png) 
@@ -51,7 +52,8 @@ interval <- as.factor(cleanactivity$interval)
 daily <- tapply(cleanactivity$steps, interval, mean, na.rm = TRUE)
 forplot <- as.data.frame(cbind(as.integer(rownames(daily)), daily))
 names(forplot) <- c("Time", "Steps")
-plot(forplot, type = "l", main = "Average activity over a day", xlab = "Time (24 hr clock)", ylab = "Average number of steps")
+plot(forplot, type = "l", main = "Average activity over a day", 
+     xlab = "Time (24 hr clock)", ylab = "Average number of steps")
 ```
 
 ![](PA1_template_files/figure-html/daily-1.png) 
@@ -96,7 +98,8 @@ Now we recalculate the sums through the same tapply loop as in the first example
 
 ```r
 sum2 <- tapply(activity2$steps, activity2$date, sum, na.rm = TRUE)
-hist(sum, breaks = 20, xlab = "Total number of steps per day", main = "Histogram of total daily steps")
+hist(sum, breaks = 20, xlab = "Total number of steps per day", 
+     main = "Histogram of total daily steps")
 ```
 
 ![](PA1_template_files/figure-html/sum2-1.png) 
@@ -104,7 +107,9 @@ hist(sum, breaks = 20, xlab = "Total number of steps per day", main = "Histogram
 Next the mean and median are calculated and compared with the originals
 
 ```r
-matrix(c(mean(sum, na.rm = TRUE), median(sum, na.rm = TRUE), mean(sum2, na.rm = TRUE), median(sum2, na.rm = TRUE)), nrow = 2, ncol = 2, dimnames = list(c("Mean", "Median"), c("Without NA", "Imputed NAs")))
+matrix(c(mean(sum, na.rm = TRUE), median(sum, na.rm = TRUE), mean(sum2, na.rm = TRUE), 
+         median(sum2, na.rm = TRUE)), nrow = 2, ncol = 2, dimnames = list(c("Mean", "Median"), 
+                        c("Without NA", "Imputed NAs")))
 ```
 
 ```
@@ -137,8 +142,10 @@ weekdaymeans <- tapply(activity2$steps, list(interval, activity2$weekday), mean,
 forplot2 <- as.data.frame(cbind(as.integer(rownames(weekdaymeans)), weekdaymeans))
 names(forplot2) <- c("Time", "Steps_Weekday", "Steps_Weekend")
 par(mfrow = c(2,1))
-plot(forplot2[,1:2], type = "l", main = "Average activity over weekdays", xlab = "Time (24 hr clock)", ylab = "Average number of steps")
-plot(forplot2[,c(1,3)], type = "l", main = "Average activity over weekends", xlab = "Time (24 hr clock)", ylab = "Average number of steps")
+plot(forplot2[,1:2], type = "l", main = "Average activity over weekdays", 
+     xlab = "Time (24 hr clock)", ylab = "Average number of steps")
+plot(forplot2[,c(1,3)], type = "l", main = "Average activity over weekends", 
+     xlab = "Time (24 hr clock)", ylab = "Average number of steps")
 ```
 
 ![](PA1_template_files/figure-html/Weekday-1.png) 
